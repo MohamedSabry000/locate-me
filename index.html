@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/styles1.css">    
+</head>
+<body>
+    <main id="task1">
+        <header>
+            <p> I'm Map </p> 
+        </header>
+        <nav>
+            <p> My name is Navigator </p>
+        </nav>
+        <section>
+            <article>
+                <div id="map_canvas"></div>
+            </article>
+        </section>
+        <footer>
+            <p> I'm a Footer </p> 
+        </footer>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxV8WernPgyrAZdExRMi977f8wORP3CU0&libraries=&v=weekly" defer></script>
+    <script>
+
+        var directionsDisplay, directionsService, map;
+        
+        (function getLocation(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((pos)=>{
+                    var directionsService = new google.maps.DirectionsService();
+                    directionsDisplay = new google.maps.DirectionsRenderer();
+
+                    var mine = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                    var mapOptions = { zoom:12, mapTypeId: google.maps.MapTypeId.ROADMAP, center: mine }
+                    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                    directionsDisplay.setMap(map);
+                    
+                })
+            } else {
+                document.getElementById("map_canvas").innerHTML = "<h1>Geolocation is not supported by this browser.</h1>";
+            }
+        })();
+    </script>
+
+</body>
+</html>
